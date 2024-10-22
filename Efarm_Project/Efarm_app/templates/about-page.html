@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - E-farm Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #4CAF50;
+            color: rgb(255, 255, 255);
+            text-align: center;
+            padding: 1rem;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 10px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+        main {
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .image-slider {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+        }
+        .image-slider img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .image-slider img.active {
+            opacity: 1;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        @media (max-width: 600px) {
+            header {
+                padding: 0.5rem;
+            }
+            main {
+                padding: 1rem;
+            }
+            .image-slider {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>E-farm Portal</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>About Us</h2>
+        <div class="image-slider">
+            <img src="/placeholder.svg?height=400&width=800" alt="Farm field" class="active">
+            <img src="/placeholder.svg?height=400&width=800" alt="Farm animals">
+            <img src="/placeholder.svg?height=400&width=800" alt="Farm produce">
+        </div>
+        <p>Welcome to E-farm Portal, your one-stop destination for fresh, locally-sourced farm products. We are passionate about connecting farmers directly with consumers, ensuring you get the highest quality produce while supporting local agriculture.</p>
+        <p>Our mission is to promote sustainable farming practices, support local farmers, and provide our customers with access to fresh, healthy, and ethically-produced food. We believe in transparency, fair pricing, and building strong relationships between farmers and consumers.</p>
+        <h3>Our Values</h3>
+        <ul>
+            <li>Sustainability: We prioritize environmentally-friendly farming practices.</li>
+            <li>Quality: We ensure only the best products reach our customers.</li>
+            <li>Community: We support local farmers and strengthen rural economies.</li>
+            <li>Innovation: We leverage technology to improve farming and distribution.</li>
+        </ul>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 E-farm Portal. All rights reserved.</p>
+        <p>Contact us: info@efarmportal.com | (123) 456-7890</p>
+    </footer>
+
+    <script>
+        // Simple image slider
+        const images = document.querySelectorAll('.image-slider img');
+        let currentImage = 0;
+
+        function nextImage() {
+            images[currentImage].classList.remove('active');
+            currentImage = (currentImage + 1) % images.length;
+            images[currentImage].classList.add('active');
+        }
+
+        setInterval(nextImage, 5000); // Change image every 5 seconds
+    </script>
+</body>
+</html>

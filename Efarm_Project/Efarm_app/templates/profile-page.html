@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer's Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f4f0;
+            color: #333;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+        }
+        header {
+            background: #2c3e50;
+            color: #ffffff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+        }
+        .main {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .farmer-info, .product-section {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .farmer-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .product-item {
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .product-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        button {
+            background: #27ae60;
+            color: #ffffff;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        button:hover {
+            background: #2ecc71;
+        }
+        input[type="text"], input[type="number"], textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        @media (max-width: 768px) {
+            .main {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Farmer's Profile</h1>
+        </div>
+    </header>
+
+    <div class="container main">
+        <div class="farmer-info">
+            <img src="../images/profile_image.png" alt="Farmer's Photo" class="farmer-photo">
+            <h2 id="farmerName">Nayan Kawalkar</h2>
+            <p><strong>Farm Name:</strong> <span id="farmName">Organo deo Farm</span></p>
+            <p><strong>Location:</strong> <span id="location">Maharastra, India</span></p>
+            <p><strong>Experience:</strong> <span id="experience">20 years</span></p>
+            <p><strong>Specialties:</strong> <span id="specialties">Organic vegetables, Free-range foods</span></p>
+            <button id="editProfileBtn">Edit Profile</button>
+        </div>
+
+        <div class="product-section">
+            <h2>My Products</h2>
+            <div id="productList" class="product-list"></div>
+            <h3>Add New Product</h3>
+            <form id="addProductForm">
+                <input type="text" id="productName" placeholder="Product Name" required>
+                <input type="number" id="productPrice" placeholder="Price" step="0.01" required>
+                <textarea id="productDescription" placeholder="Product Description" required></textarea>
+                <button type="submit">Add Product</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let farmerProfile = {
+            name: "Nayan Kawalkar",
+            farmName: "Organo deo Farm",
+            location: "Maharastra, India",
+            experience: "20 years",
+            specialties: "Organic vegetables, Free Foods"
+        };
+
+        let products = [
+            { id: 1, name: "Organic Tomatoes", price: 50, description: "Fresh, juicy organic tomatoes", image: "../images/tomato.jpg" },
+            { id: 2, name: "Organic Onions", price: 20, description: "Dozen free-range eggs", image: "../images/onions.jpg" },
+            { id: 3, name: "Organic Potato", price: 100, description: "Pure, local honey", image: "../images/potato.jpg" }
+        ];
+
+        function displayFarmerProfile() {
+            document.getElementById('farmerName').textContent = farmerProfile.name;
+            document.getElementById('farmName').textContent = farmerProfile.farmName;
+            document.getElementById('location').textContent = farmerProfile.location;
+            document.getElementById('experience').textContent = farmerProfile.experience;
+            document.getElementById('specialties').textContent = farmerProfile.specialties;
+        }
+
+        function displayProducts() {
+            const productList = document.getElementById('productList');
+            productList.innerHTML = '';
+            products.forEach(product => {
+                const productElement = document.createElement('div');
+                productElement.className = 'product-item';
+                productElement.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <h3>${product.name}</h3>
+                    <p>Price: $${product.price.toFixed(2)}</p>
+                    <p>${product.description}</p>
+                `;
+                productList.appendChild(productElement);
+            });
+        }
+
+        document.getElementById('editProfileBtn').addEventListener('click', function() {
+            const newName = prompt("Enter new name:", farmerProfile.name);
+            const newFarmName = prompt("Enter new farm name:", farmerProfile.farmName);
+            const newLocation = prompt("Enter new location:", farmerProfile.location);
+            const newExperience = prompt("Enter new experience:", farmerProfile.experience);
+            const newSpecialties = prompt("Enter new specialties:", farmerProfile.specialties);
+
+            if (newName) farmerProfile.name = newName;
+            if (newFarmName) farmerProfile.farmName = newFarmName;
+            if (newLocation) farmerProfile.location = newLocation;
+            if (newExperience) farmerProfile.experience = newExperience;
+            if (newSpecialties) farmerProfile.specialties = newSpecialties;
+
+            displayFarmerProfile();
+        });
+
+        document.getElementById('addProductForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('productName').value;
+            const price = parseFloat(document.getElementById('productPrice').value);
+            const description = document.getElementById('productDescription').value;
+            const newProduct = {
+                id: products.length + 1,
+                name: name,
+                price: price,
+                description: description,
+                image: "/placeholder.svg?height=150&width=150"
+            };
+            products.push(newProduct);
+            displayProducts();
+            this.reset();
+        });
+
+        displayFarmerProfile();
+        displayProducts();
+    </script>
+</body>
+</html>
